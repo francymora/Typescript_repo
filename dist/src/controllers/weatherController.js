@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWeatherData = void 0;
-const weatherService_1 = require("../services/weatherService");
-const express_validator_1 = require("express-validator");
+import { generateDublinWeatherData, generateLondonWeatherData, } from '../services/weatherService';
+import { validationResult } from 'express-validator';
 /**
  * Gets the weather data for a city
  * @param req - The request object
  * @param res - The response object
  */
-const getWeatherData = async (req, res) => {
+export const getWeatherData = async (req, res) => {
     // Check if there are any validation errors
-    const errors = (0, express_validator_1.validationResult)(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.error('Validation error', errors.mapped());
         res.status(400).json({ errors: errors.array() });
@@ -24,11 +21,11 @@ const getWeatherData = async (req, res) => {
         let finalWeatherData;
         // Check which city was passed in
         if (city === 'london') {
-            console.log((0, weatherService_1.generateLondonWeatherData)());
-            finalWeatherData = (0, weatherService_1.generateLondonWeatherData)();
+            console.log(generateLondonWeatherData());
+            finalWeatherData = generateLondonWeatherData();
         }
         else if (city === 'dublin') {
-            finalWeatherData = (0, weatherService_1.generateDublinWeatherData)();
+            finalWeatherData = generateDublinWeatherData();
         }
         else {
             // If the city is not London or Dublin, return an error
@@ -44,5 +41,4 @@ const getWeatherData = async (req, res) => {
         res.status(500).send('Error in fetching weather data');
     }
 };
-exports.getWeatherData = getWeatherData;
 //# sourceMappingURL=weatherController.js.map
