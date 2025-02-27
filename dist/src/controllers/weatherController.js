@@ -12,7 +12,7 @@ const getWeatherData = async (req, res) => {
     // Check if there are any validation errors
     const errors = (0, express_validator_1.validationResult)(req);
     if (!errors.isEmpty()) {
-        console.error("Validation error", errors.mapped());
+        console.error('Validation error', errors.mapped());
         res.status(400).json({ errors: errors.array() });
         return;
     }
@@ -23,16 +23,16 @@ const getWeatherData = async (req, res) => {
         // Define a variable with a type of WeatherData
         let finalWeatherData;
         // Check which city was passed in
-        if (city === "london") {
+        if (city === 'london') {
             console.log((0, weatherService_1.generateLondonWeatherData)());
             finalWeatherData = (0, weatherService_1.generateLondonWeatherData)();
         }
-        else if (city === "dublin") {
+        else if (city === 'dublin') {
             finalWeatherData = (0, weatherService_1.generateDublinWeatherData)();
         }
         else {
             // If the city is not London or Dublin, return an error
-            res.status(404).send("City not found");
+            res.status(404).send('City not found');
             return;
         }
         // Return the weather data as JSON
@@ -40,8 +40,8 @@ const getWeatherData = async (req, res) => {
     }
     catch (error) {
         // If there is an error, log it and send a 500 status code
-        console.error("Error in fetching weather data", error);
-        res.status(500).send("Error in fetching weather data");
+        console.error('Error in fetching weather data', error);
+        res.status(500).send('Error in fetching weather data');
     }
 };
 exports.getWeatherData = getWeatherData;
