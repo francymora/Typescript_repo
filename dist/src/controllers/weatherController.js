@@ -1,4 +1,4 @@
-import { generateDublinWeatherData, generateLondonWeatherData, } from '../services/weatherService';
+import { generateDublinWeatherData, generateLondonWeatherData, } from '../services/weatherService.js';
 import { validationResult } from 'express-validator';
 /**
  * Gets the weather data for a city
